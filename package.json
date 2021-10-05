@@ -10,7 +10,10 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:ouranos.ping"
+		"onCommand:ouranos.ping",
+		"onCommand:ouranos.navigate",
+		"onCommand:ouranos.runTestsInFile",
+		"onCommand:ouranos.runTestInCursor"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -18,6 +21,18 @@
 			{
 				"command": "ouranos.ping",
 				"title": "Ouranos: Ping"
+			},
+			{
+				"command": "ouranos.navigate",
+				"title": "Ouranos: Navigate to File/Test"
+			},
+			{
+				"command": "ouranos.runTestsInFile",
+				"title": "Ouranos: Run All Tests in Current File"
+			},
+			{
+				"command": "ouranos.runTestInCursor",
+				"title": "Ouranos: Run Test in Current Cursor"
 			}
 		]
 	},
