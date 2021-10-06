@@ -3,11 +3,11 @@
 	"displayName": "Ouranos",
 	"description": "VS Code extension for elixir test",
 	"version": "0.0.2",
-  "publisher": "victorarsjad",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/VictorArsjad/Ouranos.git"
-  },
+	"publisher": "victorarsjad",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/VictorArsjad/Ouranos.git"
+	},
 	"engines": {
 		"vscode": "^1.60.0"
 	},
