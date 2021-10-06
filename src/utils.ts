@@ -1,4 +1,4 @@
-import { window } from "vscode";
+import { TextEditor, window } from "vscode";
 
 export function isInTestFolder(filePath: string) {
 	return filePath.includes("/test/");
@@ -34,3 +34,27 @@ export function show() {
 	const terminal = getTerminal();
 	terminal.show();
 }
+
+export const getFocusedEditor = () => {
+	return window.activeTextEditor;
+};
+
+export const getFilePath = (editor: TextEditor) => {
+	return editor.document.fileName;
+};
+
+
+function showErrorMessage(message: string) {
+	window.showErrorMessage(`Ouranos: ${message}`);
+}
+
+export const validateFilePath = (filePath: string) => {
+	if (!isInTestFolder(filePath)) {
+		showErrorMessage("Not a valid test file. Not in test folder.");
+		return false;
+	}
+	if (!isElixirTestFile(filePath)) {
+		showErrorMessage("Not an elixir test file.");
+		return false;
+	}
+};
