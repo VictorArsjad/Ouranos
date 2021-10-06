@@ -1,56 +1,7 @@
-import { window } from "vscode";
-import { changeDirectory, getAppName, isElixirTestFile, isInTestFolder, print, show } from "./utils";
-
-const ping = () => {
-	window.showInformationMessage("Hello from Ouranos!");
-};
-
-const runTestInCursor = () => {
-	const focusedEditor = window.activeTextEditor;
-	if (!focusedEditor) {
-		window.showErrorMessage(`Ouranos: Not a valid test file.`);
-		return
-	}
-
-	const focusedFilename = focusedEditor.document.fileName;
-	if (!isInTestFolder(focusedFilename)) {
-		window.showErrorMessage(`Ouranos: Not a valid test file. Not in test folder.`)
-		return
-	}
-	if(!isElixirTestFile(focusedFilename)) {
-		window.showErrorMessage(`Not a valid test file.`)
-		return
-	}
-
-	const cursorPosition = focusedEditor.selection.active.line  + 1
-	const appName = getAppName(focusedFilename)
-	changeDirectory(appName)
-	print(`mix test --no-start ${focusedFilename}:${cursorPosition}`);
-	show();
-};
-
-const runTestsInFile = () => {
-	const focusedEditor = window.activeTextEditor;
-	if (!focusedEditor) {
-		window.showErrorMessage(`Ouranos: Not a valid test file.`);
-		return
-	}
-
-	const focusedFilename = focusedEditor.document.fileName;
-	if (!isInTestFolder(focusedFilename)) {
-		window.showErrorMessage(`Ouranos: Not a valid test file. Not in test folder.`)
-		return
-	}
-	if(!isElixirTestFile(focusedFilename)) {
-		window.showErrorMessage(`Not a valid test file.`)
-		return
-	}
-
-	const appName = getAppName(focusedFilename)
-	changeDirectory(appName)
-	print(`mix test --no-start ${focusedFilename}`);
-	show();
-}
+import { navigate } from "./commands/navigate";
+import { ping } from "./commands/ping";
+import { runTestInCursor } from "./commands/runTestInCursor";
+import { runTestsInFile } from "./commands/runTestsInFile";
 
 export const commands = [
 	{
@@ -59,7 +10,7 @@ export const commands = [
 	},
 	{
 		command: "ouranos.navigate",
-		handler: ping,
+		handler: navigate,
 	},
 	{
 		command: "ouranos.runTestInCursor",
