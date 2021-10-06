@@ -1,15 +1,19 @@
 import { window } from "vscode";
 
-export function isInTestFolder(filename: string) {
-	return filename.includes("/test/");
+export function isInTestFolder(filePath: string) {
+	return filePath.includes("/test/");
 }
 
-export function isElixirTestFile(filename: string) {
-	return filename.endsWith("_test.exs");
+export function isElixirTestFile(filePath: string) {
+	return filePath.endsWith("_test.exs");
 }
 
-export function getAppName(filename: string) {
-	return filename.replace(/test\/.*/, "");
+export function getAppName(filePath: string) {
+	return filePath.replace(/test\/.*/, "");
+}
+
+export function getFileName(filePath: string) {
+	return filePath.replace(/.*\//, "")
 }
 
 function getTerminal() {
