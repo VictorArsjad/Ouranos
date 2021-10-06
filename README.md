@@ -30,10 +30,3 @@ This extension contributes the following settings:
 * `myExtension.thing`: set to `blah` to do something
 
 ## Known Issues
-
-## Release Notes
-
-
-### 0.0.1
-
-Initial release of Ouranos.

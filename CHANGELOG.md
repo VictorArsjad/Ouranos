@@ -5,5 +5,10 @@ All notable changes to the "ouranos" extension will be documented in this file.
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
 ## [Unreleased]
+- Added navigate function
 
-- Initial release
+## Release Notes
+### [0.0.2]
+- Moved to Typescript.
+### [0.0.1]
+- Initial release of Ouranos.
