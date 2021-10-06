@@ -56,16 +56,14 @@ function showErrorMessage(message: string) {
 }
 
 const validateFile = (filename: string) => {
-	let validation = true;
 	if (!isInTestFolder(filename)) {
 		showErrorMessage("Not a valid test file. Not in test folder.");
-		validation = false;
+		return false;
 	}
 	if (!isElixirTestFile(filename)) {
 		showErrorMessage("Not an elixir test file.");
-		validation = false;
+		return false;
 	}
-	return validation;
 };
 
 export const commands = [
