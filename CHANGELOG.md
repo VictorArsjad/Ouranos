@@ -5,6 +5,8 @@ All notable changes to the "ouranos" extension will be documented in this file.
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
 ## [Unreleased]
+- added feature: update dependencies
+- added shortcuts to all feature
 
 ### [0.0.4]
 - Revamped navigate function

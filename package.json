@@ -18,7 +18,8 @@
 		"onCommand:ouranos.ping",
 		"onCommand:ouranos.navigate",
 		"onCommand:ouranos.runTestsInFile",
-		"onCommand:ouranos.runTestInCursor"
+		"onCommand:ouranos.runTestInCursor",
+		"onCommand:ouranos.updateDependencies"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -38,6 +39,27 @@
 			{
 				"command": "ouranos.runTestInCursor",
 				"title": "Ouranos: Run Test in Current Cursor"
+			},
+			{
+				"command": "ouranos.updateDependencies",
+				"title": "Ouranos: Update Mix Dependencies"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "ouranos.navigate",
+				"key": "ctrl+shift+k",
+				"mac": "shift+cmd+k"
+			},
+			{
+				"command": "ouranos.runTestsInFile",
+				"key": "ctrl+shift+0",
+				"mac": "shift+cmd+0"
+			},
+			{
+				"command": "ouranos.runTestInCursor",
+				"key": "ctrl+shift+9",
+				"mac": "shift+cmd+9"
 			}
 		]
 	},
