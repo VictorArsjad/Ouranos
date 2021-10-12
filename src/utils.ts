@@ -27,6 +27,10 @@ export const getFileDetail = (absolutePath: string) => {
 	};
 };
 
+export const getProjectRootPath = () => {
+	return vscode.getWorkspace();
+};
+
 export const getAppPath = (filePath: string) => {
 	return filePath.replace(/test\/.*/, "").replace(/lib\/.*/, "");
 };

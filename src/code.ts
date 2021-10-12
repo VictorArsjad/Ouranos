@@ -1,3 +1,4 @@
+import path = require("path");
 import { GlobPattern, TextEditor, Uri, window, workspace } from "vscode";
 import { getFileDetail } from "./utils";
 
@@ -16,6 +17,10 @@ export class Vscode {
 			return;
 		}
 		return this.getFilePath(editor!!);
+	};
+
+	public getWorkspace = () => {
+		return workspace.workspaceFolders!![0].uri.path;
 	};
 
 	public getTerminal() {
