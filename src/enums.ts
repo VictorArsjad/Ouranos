@@ -1,4 +1,4 @@
 export enum EditorType {
-	File,
-	Test,
+	file,
+	test,
 }
