@@ -2,7 +2,7 @@
 	"name": "ouranos",
 	"displayName": "Ouranos",
 	"description": "VS Code extension for elixir test",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"publisher": "victorarsjad",
 	"repository": {
 		"type": "git",
