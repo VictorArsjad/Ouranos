@@ -1,7 +1,7 @@
 import {
 	getProjectRootPath,
 	runOnTerminal,
-} from "../utils";
+} from "../helpers/utils";
 
 export const updateDependencies = () => {
 	const path = getProjectRootPath();
