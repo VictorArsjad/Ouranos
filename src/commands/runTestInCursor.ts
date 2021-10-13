@@ -1,5 +1,5 @@
-import { Vscode } from "../code";
-import { getAppPath, runOnTerminal, validateFilePath } from "../utils";
+import { Vscode } from "../helpers/code";
+import { getAppPath, runOnTerminal, validateFilePath } from "../helpers/utils";
 
 const vscode = new Vscode();
 

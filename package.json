@@ -19,7 +19,8 @@
 		"onCommand:ouranos.navigate",
 		"onCommand:ouranos.runTestsInFile",
 		"onCommand:ouranos.runTestInCursor",
-		"onCommand:ouranos.updateDependencies"
+		"onCommand:ouranos.updateDependencies",
+		"onCommand:ouranos.checkLint"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -43,6 +44,10 @@
 			{
 				"command": "ouranos.updateDependencies",
 				"title": "Ouranos: Update Mix Dependencies"
+			},
+			{
+				"command": "ouranos.checkLint",
+				"title": "Ouranos: Check Lint"
 			}
 		],
 		"keybindings": [
@@ -60,6 +65,11 @@
 				"command": "ouranos.runTestInCursor",
 				"key": "ctrl+shift+9",
 				"mac": "shift+cmd+9"
+			},
+			{
+				"command": "ouranos.checkLint",
+				"key": "ctrl+shift+-",
+				"mac": "shift+cmd+-"
 			}
 		]
 	},

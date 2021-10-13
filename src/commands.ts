@@ -1,3 +1,4 @@
+import { checkLint } from "./commands/checkLint";
 import { navigate } from "./commands/navigate";
 import { ping } from "./commands/ping";
 import { runTestInCursor } from "./commands/runTestInCursor";
@@ -24,5 +25,9 @@ export const commands = [
 	{
 		command: "ouranos.updateDependencies",
 		handler: updateDependencies,
+	},
+	{
+		command: "ouranos.checkLint",
+		handler: checkLint,
 	},
 ];

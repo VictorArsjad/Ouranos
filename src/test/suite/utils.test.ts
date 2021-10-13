@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import { window } from "vscode";
-import { getFileDetail, isInTestFolder } from "../../utils";
+import { getFileDetail, isInTestFolder } from "../../helpers/utils";
 
 suite("Utils Test Suite", () => {
 	suite("getFileDetail for test file", () => {

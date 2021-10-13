@@ -1,7 +1,7 @@
 import { GlobPattern, Uri, window, workspace } from "vscode";
-import { Vscode } from "../code";
-import { EditorType } from "../enums";
-import { getFileDetail, isInTestFolder } from "../utils";
+import { Vscode } from "../helpers/code";
+import { EditorType } from "../helpers/enums";
+import { getFileDetail, isInTestFolder } from "../helpers/utils";
 
 const vscode = new Vscode();
 

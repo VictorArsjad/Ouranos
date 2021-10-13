@@ -1,6 +1,4 @@
-import path = require("path");
 import { GlobPattern, TextEditor, Uri, window, workspace } from "vscode";
-import { getFileDetail } from "./utils";
 
 export class Vscode {
 	public getFocusedEditor = () => {
