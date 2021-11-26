@@ -6,7 +6,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
-### [0.0.6]
+### [0.0.7]
 - Improve navigate function: Now Ouranos is able to navigate between json schemas and processor file in consumers, to test files.
 
 ### [0.0.6]
