@@ -2,7 +2,7 @@
 	"name": "ouranos",
 	"displayName": "Ouranos",
 	"description": "VS Code extension for elixir test",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"publisher": "victorarsjad",
 	"repository": {
 		"type": "git",
@@ -71,7 +71,23 @@
 				"key": "ctrl+shift+-",
 				"mac": "shift+cmd+-"
 			}
-		]
+		],
+		"configuration": {
+			"title": "ouranos",
+			"type": "object",
+			"properties": {
+				"ouranos.openTerminalOnRunTest": {
+					"type": "boolean",
+					"default": true,
+					"description": "Open terminal when running elixir tests"
+				},
+				"ouranos.argsOnRunTest": {
+					"type": "string",
+					"default": "--no-start",
+					"description": "Define args when running elixir tests"
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run package",

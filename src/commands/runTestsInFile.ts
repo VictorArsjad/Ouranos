@@ -1,7 +1,5 @@
-import { Vscode } from "../helpers/code";
+import * as vscode from "../helpers/code";
 import { getAppPath, runOnTerminal, validateFilePath } from "../helpers/utils";
-
-const vscode = new Vscode();
 
 export const runTestsInFile = () => {
 	const focusedEditor = vscode.getFocusedEditor();
@@ -13,6 +11,8 @@ export const runTestsInFile = () => {
 	if (!validateFilePath(focusedFilePath)) {
 		return;
 	}
+
+	vscode.showProgressBar("Running unit test..");
 
 	const appPath = getAppPath(focusedFilePath);
 	runOnTerminal(appPath, `mix test --no-start ${focusedFilePath}`);

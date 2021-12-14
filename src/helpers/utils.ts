@@ -1,6 +1,6 @@
-import { Vscode } from "./code";
+import * as vscode from "./code";
 
-const vscode = new Vscode();
+const config = vscode.getConfiguration();
 
 export function isInTestFolder(filePath: string) {
 	return filePath.includes("/test/");
@@ -14,7 +14,9 @@ export function runOnTerminal(location: string, command: string) {
 	const terminal = vscode.getTerminal();
 	terminal.sendText(`cd ${location}`);
 	terminal.sendText(command);
-	terminal.show();
+	if (config.openTerminalOnRunTest) {
+		terminal.show();
+	}
 }
 
 export const getFileDetail = (absolutePath: string) => {

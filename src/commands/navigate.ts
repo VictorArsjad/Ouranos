@@ -1,9 +1,7 @@
 import { GlobPattern, Uri, window, workspace } from "vscode";
-import { Vscode } from "../helpers/code";
+import * as vscode from "../helpers/code";
 import { EditorType } from "../helpers/enums";
 import { getFileDetail, isInTestFolder } from "../helpers/utils";
-
-const vscode = new Vscode();
 
 export const navigate = () => {
 	const focusedFilePath = vscode.getFocusedFilePath();

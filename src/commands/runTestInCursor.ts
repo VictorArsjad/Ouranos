@@ -1,7 +1,5 @@
-import { Vscode } from "../helpers/code";
+import * as vscode from "../helpers/code";
 import { getAppPath, runOnTerminal, validateFilePath } from "../helpers/utils";
-
-const vscode = new Vscode();
 
 export const runTestInCursor = () => {
 	const focusedEditor = vscode.getFocusedEditor();
@@ -13,6 +11,8 @@ export const runTestInCursor = () => {
 	if (!validateFilePath(focusedFilePath)) {
 		return;
 	}
+	
+	vscode.showProgressBar("Running unit test..");
 
 	const cursorPosition = focusedEditor.selection.active.line + 1;
 	const appPath = getAppPath(focusedFilePath);
