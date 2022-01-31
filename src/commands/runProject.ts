@@ -11,9 +11,10 @@ export const runProject = async () => {
 			await glob(`**`, {
 				cwd: `${rootPath}/apps`,
 				onlyDirectories: true,
-				// ignore: [`**/**`],
 				deep: 0,
-			})
+			}), {
+                placeHolder: "Pick project to run..",
+            }
 		)
 		.then((sel) => {
 			if (!sel) {
