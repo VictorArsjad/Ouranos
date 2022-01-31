@@ -1,89 +1,120 @@
-import { GlobPattern, Uri, window, workspace } from "vscode";
+import { Uri, window, workspace } from "vscode";
 import * as vscode from "../helpers/code";
 import { EditorType } from "../helpers/enums";
-import { getFileDetail, isInTestFolder } from "../helpers/utils";
+import { getFileDetail } from "../helpers/utils";
 
-export const navigate = () => {
+export const navigate = async () => {
 	const focusedFilePath = vscode.getFocusedFilePath();
 	if (!focusedFilePath) {
 		return;
 	}
 
-	const {
-		absolutePath: absolutePath,
-		pathAfterAppName: pathAfterAppName,
-		fileName: fileName,
-		appName: appName,
-	} = getFileDetail(focusedFilePath);
+	const fileDetail = getFileDetail(focusedFilePath);
+	const possibleTargetPaths = getPossibleTargetPaths(fileDetail);
 
-	switch (getCurrentFileType(absolutePath)) {
-		case EditorType.file:
-			const possibleTestFilePath = getPossibleTestFilePath(
-				pathAfterAppName + fileName,
-				appName
-			);
-			findAndOpenFile(`**/test/**/${possibleTestFilePath}`);
+	const possibleFiles = await findAllFiles(possibleTargetPaths);
+	switch (possibleFiles.length) {
+		case 0:
+			vscode.showErrorMessage("No result found.");
 			break;
 
-		case EditorType.test:
-			const possibleFilePath = getPossibleFilePath(
-				pathAfterAppName + fileName,
-				appName
-			);
-			findAndOpenFile(`**/lib/**/${possibleFilePath}`);
+		case 1:
+			openFile(possibleFiles[0]);
+			break;
+
+		default:
+			showQuickPick(possibleFiles);
 			break;
 	}
 };
 
-function findAndOpenFile(pattern: GlobPattern) {
-	vscode.findFiles(pattern).then((result) => {
-		if (isSingleResult(result)) {
-			openFile(result[0]);
-		} else {
-			showQuickPick(result);
-		}
+async function findAllFiles(patterns: string[]) {
+	const promises = patterns.map(async (pattern) => {
+		const file = await vscode.findFiles(pattern);
+		return file;
 	});
+
+	const possibleUris = await Promise.all(promises);
+	return possibleUris.flat();
 }
 
-const isSingleResult = (result: Uri[]) => {
-	return result.length === 1;
+const getPossibleTargetPaths = (fileDetail: {
+	fileName: string;
+	appName: any;
+	pathAfterAppName: string;
+	fileType: EditorType;
+}) => {
+	const { appName, fileName } = fileDetail;
+	const rules = [
+		{
+			name: "is_consumer_file",
+			condition: appName === "consumer",
+			test: "_test.exs",
+			file: "/processor.ex",
+		},
+		{
+			name: "is_schema_file",
+			condition:
+				fileName.endsWith("_schema_test.exs") ||
+				fileName.endsWith(".schema.json"),
+			test: "_schema_test.exs",
+			file: ".schema.json",
+		},
+		{
+			name: "is_normal_file",
+			condition: true,
+			test: "_test.exs",
+			file: ".ex",
+		},
+	];
+
+	return process(rules, fileDetail);
 };
 
-const getCurrentFileType = (filePath: string) => {
-	if (isInTestFolder(filePath)) {
-		return EditorType.test;
+const process = (
+	rules: any,
+	fileDetail: {
+		fileName: string;
+		appName: any;
+		pathAfterAppName: string;
+		fileType: EditorType;
 	}
-	return EditorType.file;
-};
+) => {
+	const { appName, pathAfterAppName, fileName, fileType } = fileDetail;
+	const filePath = pathAfterAppName + fileName;
+	const generalPath = removeFileTypeFromPath(filePath, appName);
 
-const getPossibleFilePath = (filePath: string, appName: string) => {
-	let updatedFilePath;
-	if (appName === "consumer") {
-		updatedFilePath = filePath.replace("_test.exs", "/processor.ex");
-	} else if (filePath.endsWith("_schema_test.exs")) {
-		updatedFilePath = filePath.replace("_schema_test.exs", ".schema.json");
-	} else {
-		updatedFilePath = filePath.replace("_test.exs", ".ex");
+	let possibleFilePaths: Array<string> = [];
+	for (let r of rules) {
+		if (r.condition) {
+			if (fileType === EditorType.test) {
+				possibleFilePaths.push(
+					convert(generalPath, `**/${appName}/lib/**/`, r.test, r.file)
+				);
+			} else {
+				possibleFilePaths.push(
+					convert(generalPath, `**/${appName}/test/**/`, r.file, r.test)
+				);
+			}
+		}
 	}
-
-	return updatedFilePath.replace("test/", "").replace(`${appName}/`, "**");
+	return possibleFilePaths;
 };
 
-const getPossibleTestFilePath = (filePath: string, appName: string) => {
-	let updatedFilePath;
-	if (appName === "consumer") {
-		updatedFilePath = filePath.replace("/processor.ex", "_test.exs");
-	} else if (filePath.endsWith(".schema.json")) {
-		updatedFilePath = filePath.replace(".schema.json", "_schema_test.exs");
-	} else {
-		updatedFilePath = filePath.replace(".ex", "_test.exs");
-	}
-
-	return updatedFilePath.replace("lib/", "").replace(`${appName}/`, "**");
+const convert = (
+	currentFilePath: string,
+	prefix: string,
+	from: string,
+	to: string
+) => {
+	return `${prefix}${currentFilePath.replace(from, to)}`;
 };
 
-const openFile = (file: Uri) => {
-	return workspace.openTextDocument(file).then(window.showTextDocument);
+const removeFileTypeFromPath = (path: string, appName: string) => {
+	return path
+		.replace(`${appName}/`, "")
+		.replace("test/", "")
+		.replace("lib/", "");
 };
 
 async function showQuickPick(res: Uri[]) {
@@ -100,3 +131,7 @@ async function showQuickPick(res: Uri[]) {
 	}
 	openFile(selected!!);
 }
+
+const openFile = (file: Uri) => {
+	return workspace.openTextDocument(file).then(window.showTextDocument);
+};

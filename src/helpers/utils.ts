@@ -1,4 +1,5 @@
 import * as vscode from "./code";
+import { EditorType } from "./enums";
 
 const config = vscode.getConfiguration();
 
@@ -26,7 +27,15 @@ export const getFileDetail = (absolutePath: string) => {
 		appPath: getAppPath(absolutePath),
 		appName: getAppName(absolutePath),
 		pathAfterAppName: getPathAfterAppName(absolutePath),
+		fileType: getFileType(absolutePath)
 	};
+};
+
+const getFileType = (filePath: string) => {
+	if (isInTestFolder(filePath)) {
+		return EditorType.test;
+	}
+	return EditorType.file;
 };
 
 export const getProjectRootPath = () => {

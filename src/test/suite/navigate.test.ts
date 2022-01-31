@@ -37,10 +37,18 @@ suite("Navigate Test Suite", () => {
 		{
 			path: `${workspace}/apps/hedwig/test/schema/v1/goresto_claim_schema_test.exs`,
 			expected: `${workspace}/apps/hedwig/lib/hedwig/schema/v1/goresto_claim.schema.json`,
-		}
+		},
+		{
+			path: `${workspace}/apps/consumer/lib/consumer/passport/onboarding_entity_mapper.ex`,
+			expected: `${workspace}/apps/consumer/test/consumer/passport/onboarding_entity_mapper_test.exs`,
+		},
+		{
+			path: `${workspace}/apps/consumer/test/consumer/passport/onboarding_entity_mapper_test.exs`,
+			expected: `${workspace}/apps/consumer/lib/consumer/passport/onboarding_entity_mapper.ex`,
+		},
 	];
 
-	for (var index in tests) {
+	for (let index in tests) {
 		test(`should navigate correctly for case ${index}`, async () => {
 			setupFolder();
 			await openFile(tests[index].path);

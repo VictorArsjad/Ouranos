@@ -5,6 +5,7 @@ All notable changes to the "ouranos" extension will be documented in this file.
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
 ## [Unreleased]
+- Fix issue: cannot navigate file in consumer beside processor.ex
 
 ### [0.0.8]
 - Add ability for configuration

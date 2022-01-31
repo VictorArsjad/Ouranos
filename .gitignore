@@ -4,3 +4,5 @@ node_modules
 *.vsix
 coverage
 dist/
+.tool-versions
+.DS_Store
