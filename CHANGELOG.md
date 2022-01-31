@@ -6,6 +6,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 - Fix issue: cannot navigate file in consumer beside processor.ex
+- Added feature: Run current project
+- Added feature: Run Project..
+- Added feature: Add Breakpoint
 
 ### [0.0.8]
 - Add ability for configuration

@@ -20,7 +20,10 @@
 		"onCommand:ouranos.runTestsInFile",
 		"onCommand:ouranos.runTestInCursor",
 		"onCommand:ouranos.updateDependencies",
-		"onCommand:ouranos.checkLint"
+		"onCommand:ouranos.checkLint",
+		"onCommand:ouranos.runCurrentProject",
+		"onCommand:ouranos.runProject",
+		"onCommand:ouranos.pry"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -48,6 +51,18 @@
 			{
 				"command": "ouranos.checkLint",
 				"title": "Ouranos: Check Lint"
+			},
+			{
+				"command": "ouranos.runCurrentProject",
+				"title": "Ouranos: Run Current Project"
+			},
+			{
+				"command": "ouranos.runProject",
+				"title": "Ouranos: Run Project.."
+			},
+			{
+				"command": "ouranos.pry",
+				"title": "Ouranos: Add Elixir Breakpoint in Current Line"
 			}
 		],
 		"keybindings": [
@@ -116,5 +131,7 @@
 		"webpack": "^5.52.1",
 		"webpack-cli": "^4.8.0"
 	},
-	"dependencies": {}
+	"dependencies": {
+		"fast-glob": "^3.2.11"
+	}
 }
